@@ -19,7 +19,13 @@ public class AdminController {
         return new SystemWebSocketHandler();
     }
 
-    @RequestMapping("/auditing")
+    /**
+     * 手动更新数据，测试使用
+     * 线上实际业务，可以根据观察者模式或者采用定时采集需要发送的数据。
+     * @param request
+     * @return
+     */
+    @RequestMapping("/send/data")
     @ResponseBody
     public String auditing(HttpServletRequest request){
         try {
