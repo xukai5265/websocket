@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jim</title>
+    <script src="src/jim.js"></script>
+</head>
+<body>
+<button id="start">开启链接</button>
+<input id="text" type="text">
+<button id="send">发送</button>
+<button id="close">关闭</button>
+<script>
+
+    window.onload = function() {
+        var jsocket;
+        document.getElementById('send').addEventListener('click', function(e) {
+            var text = document.getElementById('text').value;
+            jsocket.send(text);
+        });
+        document.getElementById('start').addEventListener('click', function(e) {
+            jsocket = Jim({
+                wsUrl: 'ws://localhost:8080/websck',
+                debug: true,
+                onMessage:function (data) {
+                    console.log(data)
+                }
+            });
+        });
+        document.getElementById('close').addEventListener('click', function(e) {
+            jsocket.close();
+        });
+    };
+</script>
+</body>
+</html>
