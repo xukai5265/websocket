@@ -62,6 +62,8 @@ public class SystemWebSocketHandler implements WebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession wss, CloseStatus cs) throws Exception {
         System.out.println("websocket connection closed......");
+        users.remove(wss);
+        System.out.println("关闭连接后session数："+users.size());
     }
 
     @Override
@@ -69,10 +71,16 @@ public class SystemWebSocketHandler implements WebSocketHandler {
         return false;
     }
 
-    public void sendAll() throws IOException {
-        for(WebSocketSession sessions :users){
-            TextMessage returnMessage = new TextMessage("test data！");
-            sessions.sendMessage(returnMessage);
+    /**
+     * 给所有的连接发送消息
+     * @param message
+     * @throws IOException
+     */
+    public void sendAll(TextMessage message) throws IOException {
+        for(WebSocketSession session :users){
+            if(session.isOpen()){
+                session.sendMessage(message);
+            }
         }
     }
 }

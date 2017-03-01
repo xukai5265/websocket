@@ -79,13 +79,9 @@
                     url: that.xhrUrl + '/info',
                     method: 'GET',
                     success: function(data) {
-                        if (data === 'o') {
-                            that.log('已链接', LOG_INFO);
-                            that.onOpen();
-                            that._get();
-                        } else {
-                            that.log('链接失败', LOG_ERROR);
-                        }
+                        that.log('已链接', LOG_INFO);
+                        that.onOpen();
+                        that._get();
                     },
                     error: function() {
                         that.onError();
@@ -128,19 +124,21 @@
             }
         },
         _get: function() {
+            var that = this;
             if (!this.isLive) {
                 return false;
             }
             if (maxConnectNumber === 0) {
                 setTimeout(function () {
                     maxConnectNumber = 3;
+                    that._get();
                 }, 10000);
             }
-            var that = this;
             ajax({
                 url: that.xhrUrl + '/911/abcdef/xhr',
                 method: 'GET',
                 success: function(res) {
+                    console.log('ajax返回：' + res);
                     if (res == 'h') {
                         return false;
                     }
