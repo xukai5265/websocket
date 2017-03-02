@@ -49,7 +49,8 @@
             url = "http://192.168.2.40:8080/sockjs/websocket/info"
 //            url = "http://192.168.2.40:8080/call/details"
             console.log(transports)
-            ws = (url.indexOf('sockjs') != -1) ?new SockJS(url, undefined, {protocols_whitelist: transports}) : new WebSocket(url);
+//            ws = (url.indexOf('sockjs') != -1) ?new SockJS(url, undefined, {protocols_whitelist: transports}) : new WebSocket(url);
+            ws = new SockJS(url, undefined, {protocols_whitelist: transports});
 //            if ('WebSocket'in window) {
 //                ws= new WebSocket("ws://localhost:8080/websocket");
 ////                ws = new SockJS("http://192.168.2.40:8080/call/details/123");
